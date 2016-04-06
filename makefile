@@ -1,6 +1,6 @@
 FORTRAN = gfortran
-FFLAGS = -c 
-MEX = C:/Program\ Files\ (x86)/MATLAB/R2012a\ Student/bin/mex.bat
+FFLAGS = -c -fPIC
+MEX = /usr/local/matlab/bin/mex
 
 OBJS=\
 cfmm2dpart.o\
