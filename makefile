@@ -1,5 +1,6 @@
 FORTRAN = gfortran
 FFLAGS = -c 
+MEX = C:/Program\ Files\ (x86)/MATLAB/R2012a\ Student/bin/mex.bat
 
 OBJS=\
 cfmm2dpart.o\
@@ -12,9 +13,8 @@ prini.o\
 rfmm2dpart.o\
 laplaceSLP.o
 
-
-testCall: testCall.f $(OBJS)
-	$(FORTRAN) testCall.f -o testCall $(OBJS)
+mex: laplaceSLPfmm.F $(OBJS)
+	$(MEX) laplaceSLPfmm.F $(OBJS)
 
 cfmm2dpart.o: cfmm2dpart.f
 	$(FORTRAN) $(FFLAGS) cfmm2dpart.f
