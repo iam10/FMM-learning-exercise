@@ -1,4 +1,4 @@
-
+clear all
 dt = 0.1;
 steps = 20;
 N = 2^4;
@@ -18,13 +18,14 @@ yD = y;
 f1 = figure;
 figure(f1);
 scatter(x,y);
-title('f1')
+title('f1');
 f2 = figure;
 figure(f2);
-title('f2');
 scatter(xD,yD);
+title('f2');
 pause;
 
+den = ones(N,1);
 Vx = 0;
 Vy = 0;
 VxD = 0;
@@ -38,6 +39,8 @@ for i = 1:steps
         dxxD(j) = sum(den(ind).*(xD(j) - xD(ind))./rho2);
         dyyD(j) = sum(den(ind).*(yD(j) - yD(ind))./rho2);
     end
+    dxxD = dxxD/2/pi;
+    dyyD = dyyD/2/pi;
     [dxx,dyy] = laplaceSLPfmm(den,x,y);
     
     VxD = VxD - dxxD*dt;
@@ -55,8 +58,10 @@ for i = 1:steps
     clf;
     figure(f1);
     scatter(x,y);
+    title('f1')
     figure(f2);
     scatter(xD,yD);
+    title('f2');
     pause
 end
 
