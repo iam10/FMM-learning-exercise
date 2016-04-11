@@ -15,48 +15,26 @@ for i = 1:sqrt(N)
 end
 xD = x;
 yD = y;
+%{
+f1 = figure;
+figure(f1);
+scatter(x,y);
+title('f1');
+f2 = figure;
+figure(f2);
+scatter(xD,yD);
+title('f2');
+pause;
+%}
 
 den = ones(N,1);
 Vx = 0;
 Vy = 0;
-figure(1)
-filename = 'fmm.gif';
-scatter(x,y)
-xlim([1,4]);
-ylim([1,4]);
-drawnow
-frame = getframe(1);
-im = frame2im(frame);
-[imind,cm] = rgb2ind(im,256);
-imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
-for i = 1:steps
-    %dxx = 0;
-    %dyy = 0;
-    [dxx,dyy] = laplaceSLPfmm(den,x,y);
-    
-    Vx = Vx - dxx*dt;
-    Vy = Vy - dyy*dt;
-
-    x = x + dt*Vx;
-    y = y + dt*Vy;
-    
-    scatter(x,y)
-    xlim([1,4]);
-    ylim([1,4]);
-    drawnow
-    frame = getframe(1);
-    im = frame2im(frame);
-    [imind,cm] = rgb2ind(im,256);
-    imwrite(imind,cm,filename,'gif','WriteMode','append');
-end
-
 VxD = 0;
 VyD = 0;
 figure(1)
-filename = 'direct.gif';
+filename = 'testnew51.gif';
 scatter(xD,yD)
-xlim([1,4]);
-ylim([1,4]);
 drawnow
 frame = getframe(1);
 im = frame2im(frame);
@@ -73,6 +51,7 @@ for i = 1:steps
     end
     dxxD = dxxD/2/pi;
     dyyD = dyyD/2/pi;
+    %[dxx,dyy] = laplaceSLPfmm(den,x,y);
     
     VxD = VxD - dxxD*dt;
     VyD = VyD - dyyD*dt;
@@ -80,13 +59,28 @@ for i = 1:steps
     xD = xD + dt*VxD;
     yD = yD + dt*VyD;
     
+    Vx = Vx - dxx*dt;
+    Vy = Vy - dyy*dt;
+
+    x = x + dt*Vx;
+    y = y + dt*Vy;
+    
     scatter(xD,yD)
-    xlim([1,4]);
-    ylim([1,4]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
-    imwrite(imind,cm,filename,'gif','WriteMode','append');
+      imwrite(imind,cm,filename,'gif','WriteMode','append');
+    end
+    %{
+    clf;
+    figure(f1);
+    scatter(x,y);
+    title('f1')
+    figure(f2);
+    scatter(xD,yD);
+    title('f2');
+    pause
+    %}
 end
 
