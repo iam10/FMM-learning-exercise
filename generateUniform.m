@@ -8,7 +8,7 @@ for i = 1:pointCount
 end
 %save stored information
 fileID = fopen('uniformData.txt','w');
-fprintf(fileID,'%d\n',pointCount);
+%fprintf(fileID,'%d\n',pointCount);
 fprintf(fileID,'%f\t%f\n',pointCloud);
 fclose(fileID);
 end

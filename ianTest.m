@@ -2,6 +2,7 @@ clear all
 dt = 0.1;
 steps = 20;
 N = 2^4;
+%{
 x = zeros(N,1);
 y = zeros(N,1);
 
@@ -15,9 +16,20 @@ for i = 1:sqrt(N)
 end
 xD = x;
 yD = y;
+%}
+
+fileID = fopen('uniformData.txt','r');
+formatSpec = '%f %f';
+sizeA = [2 Inf];
+A = fscanf(fileID,formatSpec,sizeA);
+A = A';
+x = A(:,1);
+y = A(:,2);
+xD = x;
+yD = y;
 
 figure(1)
-filename = 'testnew51.gif';
+filename = 'fmm.gif';
 scatter(x,y)
 xlim([0,5]);
 ylim([0,5]);
@@ -53,7 +65,7 @@ end
 
 %Where direct starts
 figure(2)
-filename = 'testnew51.gif';
+filename = 'direct.gif';
 scatter(x,y)
 xlim([0,5]);
 ylim([0,5]);

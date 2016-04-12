@@ -16,39 +16,26 @@ end
 xD = x;
 yD = y;
 
+A = fscanf(fileID,formatSpec)
+
 figure(1)
-filename = 'testnew51.gif';y = x.^n;
+filename = 'testnew51.gif';
 scatter(x,y)
+xlim([0,5]);
+ylim([0,5]);
 drawnow
 frame = getframe(1);
 im = frame2im(frame);
 [imind,cm] = rgb2ind(im,256);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
-      
 
 den = ones(N,1);
 Vx = 0;
 Vy = 0;
-VxD = 0;
-VyD = 0;
 for i = 1:steps
-    dxxD = zeros(N,1);
-    dyyD = zeros(N,1);
-    for j = 1:N
-        ind = [(1:j-1) (j+1:N)];
-        rho2 = (xD(j) - xD(ind)).^2 + (yD(j) - yD(ind)).^2;
-        dxxD(j) = sum(den(ind).*(xD(j) - xD(ind))./rho2);
-        dyyD(j) = sum(den(ind).*(yD(j) - yD(ind))./rho2);
-    end
-    dxxD = dxxD/2/pi;
-    dyyD = dyyD/2/pi;
+    %dxx = 0;
+    %dyy = 0;
     [dxx,dyy] = laplaceSLPfmm(den,x,y);
-    
-    VxD = VxD - dxxD*dt;
-    VyD = VyD - dyyD*dt;
-
-    xD = xD + dt*VxD;
-    yD = yD + dt*VyD;
     
     Vx = Vx - dxx*dt;
     Vy = Vy - dyy*dt;
@@ -57,6 +44,8 @@ for i = 1:steps
     y = y + dt*Vy;
     
     scatter(x,y)
+    xlim([0,5]);
+    ylim([0,5]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
@@ -65,6 +54,17 @@ for i = 1:steps
 end
 
 %Where direct starts
+figure(2)
+filename = 'testnew51.gif';
+scatter(x,y)
+xlim([0,5]);
+ylim([0,5]);
+drawnow
+frame = getframe(1);
+im = frame2im(frame);
+[imind,cm] = rgb2ind(im,256);
+imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
+
 VxD = 0;
 VyD = 0;
 for i = 1:steps
@@ -85,7 +85,9 @@ for i = 1:steps
     xD = xD + dt*VxD;
     yD = yD + dt*VyD;
     
-    scatter(xD,y)
+    scatter(xD,yD)
+    xlim([0,5]);
+    ylim([0,5]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
