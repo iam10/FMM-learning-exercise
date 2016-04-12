@@ -1,0 +1,2 @@
+L infinity norm of error seems to go up as dt goes up.
+L inf norm does not go up as steps go up. (maybe a little)

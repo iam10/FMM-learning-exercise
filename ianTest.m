@@ -1,7 +1,7 @@
 clear all
 dt = 0.1;
-steps = 20;
-N = 2^4;
+steps = 2000;
+%N = 2^4;
 %{
 x = zeros(N,1);
 y = zeros(N,1);
@@ -27,12 +27,18 @@ x = A(:,1);
 y = A(:,2);
 xD = x;
 yD = y;
+N = length(x);
+
+xmin = min(x);
+xmax = max(x);
+ymin = min(y);
+ymax = max(y);
 
 figure(1)
 filename = 'fmm.gif';
 scatter(x,y)
-xlim([0,5]);
-ylim([0,5]);
+%xlim([0,5]);
+%ylim([0,5]);
 drawnow
 frame = getframe(1);
 im = frame2im(frame);
@@ -54,8 +60,8 @@ for i = 1:steps
     y = y + dt*Vy;
     
     scatter(x,y)
-    xlim([0,5]);
-    ylim([0,5]);
+    %xlim([0,5]);
+    %ylim([0,5]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
@@ -67,8 +73,8 @@ end
 figure(2)
 filename = 'direct.gif';
 scatter(x,y)
-xlim([0,5]);
-ylim([0,5]);
+%xlim([0,5]);
+%ylim([0,5]);
 drawnow
 frame = getframe(1);
 im = frame2im(frame);
@@ -96,12 +102,15 @@ for i = 1:steps
     yD = yD + dt*VyD;
     
     scatter(xD,yD)
-    xlim([0,5]);
-    ylim([0,5]);
+    %xlim([0,5]);
+    %ylim([0,5]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
     imwrite(imind,cm,filename,'gif','WriteMode','append');
 end
+
+error = [abs(x-xD) abs(y-yD)];
+norm(error,inf)
 
