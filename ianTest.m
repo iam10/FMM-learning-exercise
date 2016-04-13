@@ -1,6 +1,6 @@
 clear all
 dt = 0.1;
-steps = 2000;
+steps = 200;
 %N = 2^4;
 %{
 x = zeros(N,1);
@@ -18,7 +18,7 @@ xD = x;
 yD = y;
 %}
 
-fileID = fopen('uniformData.txt','r');
+fileID = fopen('uniformDataUnperturbed.txt','r');
 formatSpec = '%f %f';
 sizeA = [2 Inf];
 A = fscanf(fileID,formatSpec,sizeA);
@@ -46,8 +46,9 @@ im = frame2im(frame);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
 
 den = ones(N,1);
-Vx = 0;
-Vy = 0;
+den(1) = 100;
+Vx = zeros(N,1);
+Vy = zeros(N,1);
 for i = 1:steps
     %dxx = 0;
     %dyy = 0;
@@ -60,8 +61,8 @@ for i = 1:steps
     y = y + dt*Vy;
     
     scatter(x,y)
-    %xlim([0,5]);
-    %ylim([0,5]);
+    xlim([0,101]);
+    ylim([0,101]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
@@ -73,16 +74,16 @@ end
 figure(2)
 filename = 'direct.gif';
 scatter(x,y)
-%xlim([0,5]);
-%ylim([0,5]);
+xlim([0,101]);
+ylim([0,101]);
 drawnow
 frame = getframe(1);
 im = frame2im(frame);
 [imind,cm] = rgb2ind(im,256);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
 
-VxD = 0;
-VyD = 0;
+VxD = zeros(N,1);
+VyD = zeros(N,1);
 for i = 1:steps
     dxxD = zeros(N,1);
     dyyD = zeros(N,1);
@@ -102,8 +103,8 @@ for i = 1:steps
     yD = yD + dt*VyD;
     
     scatter(xD,yD)
-    %xlim([0,5]);
-    %ylim([0,5]);
+    xlim([0,101]);
+    ylim([0,101]);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);

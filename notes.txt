@@ -1,2 +1,3 @@
 L infinity norm of error seems to go up as dt goes up.
 L inf norm does not go up as steps go up. (maybe a little)
+This was fixed by making the separation of the starting patricles larger

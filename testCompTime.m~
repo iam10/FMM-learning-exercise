@@ -1,0 +1,28 @@
+clear all
+format long
+N = [2,4,8,16,32,64,128];
+directTime = zeros(length(N),1);
+directTime = zeros(length(N),1);
+
+for i = 1:length(N)
+    den = ones(N(i),1);
+    dxxD = zeros(N(i),1);
+    dyyD = zeros(N(i),1);
+    tic
+    for j = 1:N(i)
+        ind = [(1:j-1) (j+1:N(i))];
+        rho2 = (xD(j) - xD(ind)).^2 + (yD(j) - yD(ind)).^2;
+        dxxD(j) = sum(den(ind).*(xD(j) - xD(ind))./rho2);
+        dyyD(j) = sum(den(ind).*(yD(j) - yD(ind))./rho2);
+    end
+    directTime(i) = toc;
+
+    tic
+    [dxx,dyy] = laplaceSLPfmm(den,x,y);
+    fmmTime(i) = toc;
+ 
+end
+
+plot(N,directTime,N,fmmTime);
+
+
