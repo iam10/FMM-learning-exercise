@@ -1,6 +1,6 @@
 clear all
-dt = 0.1;
-steps = 200;
+dt = 1;
+steps = 250;
 
 fileID = fopen('uniformDataUnperturbed.txt','r');
 formatSpec = '%f %f';
@@ -30,7 +30,7 @@ im = frame2im(frame);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
 
 den = ones(N,1);
-den(1) = 100;
+%den(1) = 100;
 Vx = zeros(N,1);
 Vy = zeros(N,1);
 for i = 1:steps
