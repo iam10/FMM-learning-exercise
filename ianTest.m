@@ -22,6 +22,7 @@ figure(1)
 filename = 'fmm.gif';
 scatter(x,y);
 title('FMM');
+pause(0.01);
 drawnow;
 frame = getframe(1);
 im = frame2im(frame);
@@ -45,6 +46,7 @@ for i = 1:steps
     title('FMM');
     xlim([0,101]);
     ylim([0,101]);
+    pause(0.01);
     drawnow;
     frame = getframe(1);
     im = frame2im(frame);
@@ -59,6 +61,7 @@ figure(1)
 filename = 'direct.gif';
 scatter(xD,yD);
 title('Direct');
+    pause(0.01);
 drawnow
 frame = getframe(1);
 im = frame2im(frame);
@@ -89,6 +92,7 @@ for i = 1:steps
     title('Direct');
     xlim([0,101]);
     ylim([0,101]);
+    pause(0.01);
     drawnow
     frame = getframe(1);
     im = frame2im(frame);
