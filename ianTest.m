@@ -56,7 +56,7 @@ end
 %Where direct starts
 figure(1)
 filename2 = 'direct.gif';
-scatter(x,y);
+scatter(xD,yD);
 title('Direct');
 drawnow
 frame2 = getframe(1);
