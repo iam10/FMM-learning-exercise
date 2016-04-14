@@ -18,7 +18,7 @@ xmax = max(x);
 ymin = min(y);
 ymax = max(y);
 
-figure(1)
+figure;
 filename = 'fmm.gif';
 scatter(x,y);
 title('FMM');
@@ -53,7 +53,7 @@ end
 
 
 %Where direct starts
-figure(2)
+figure;
 filename = 'direct.gif';
 scatter(x,y);
 title('Direct');
