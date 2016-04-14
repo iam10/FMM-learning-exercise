@@ -54,12 +54,12 @@ end
 
 
 %Where direct starts
-figure(2)
+figure(1)
 filename2 = 'direct.gif';
 scatter(x,y);
 title('Direct');
 drawnow
-frame2 = getframe(2);
+frame2 = getframe(1);
 im2 = frame2im(frame2);
 [imind2,cm2] = rgb2ind(im2,256);
 imwrite(imind2,cm2,filename2,'gif', 'Loopcount',inf);
@@ -89,7 +89,7 @@ for i = 1:steps
     xlim([0,101]);
     ylim([0,101]);
     drawnow
-    frame = getframe(2);
+    frame = getframe(1);
     im2 = frame2im(frame2);
     [imind2,cm2] = rgb2ind(im2,256);
     imwrite(imind2,cm2,filename2,'gif','WriteMode','append');

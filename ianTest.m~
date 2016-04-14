@@ -17,7 +17,7 @@ xmin = min(x);
 xmax = max(x);
 ymin = min(y);
 ymax = max(y);
-%{
+
 figure(1)
 filename = 'fmm.gif';
 scatter(x,y);
@@ -39,7 +39,7 @@ for i = 1:steps
 
     x = x + dt*Vx;
     y = y + dt*Vy;
-
+    
     scatter(x,y);
     title('FMM');
     xlim([0,101]);
@@ -49,23 +49,21 @@ for i = 1:steps
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
     imwrite(imind,cm,filename,'gif','WriteMode','append');
+    
 end
-%}
 
+%{
 %Where direct starts
 figure(2)
 filename2 = 'direct.gif';
 scatter(x,y);
-drawnow
 title('Direct');
-xlim([0,101]);
-ylim([0,101]);
 drawnow
-frame2 = getframe(1);
+frame2 = getframe(2);
 im2 = frame2im(frame2);
-[imind2,cm2] = rgb2ind(im,256);
+[imind2,cm2] = rgb2ind(im2,256);
 imwrite(imind2,cm2,filename2,'gif', 'Loopcount',inf);
-
+%}
 VxD = zeros(N,1);
 VyD = zeros(N,1);
 for i = 1:steps
@@ -85,16 +83,17 @@ for i = 1:steps
 
     xD = xD + dt*VxD;
     yD = yD + dt*VyD;
-    
+    %{
     scatter(xD,yD);
     title('Direct');
     xlim([0,101]);
     ylim([0,101]);
     drawnow
-    frame = getframe(1);
-    im = frame2im(frame);
-    [imind,cm] = rgb2ind(im,256);
-    imwrite(imind,cm,filename,'gif','WriteMode','append');
+    frame = getframe(2);
+    im2 = frame2im(frame2);
+    [imind2,cm2] = rgb2ind(im2,256);
+    imwrite(imind2,cm2,filename2,'gif','WriteMode','append');
+    %}
 end
 
 error = [abs(x-xD) abs(y-yD)];
