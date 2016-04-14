@@ -1,5 +1,5 @@
 
-
+%Solar system
 N = 9;
 x = zeros(N,1);
 y = zeros(N,1);
@@ -80,6 +80,25 @@ den = cos(rand(N,1));
 den(1) = N*.5;
 den(N/2:N) = 2.*den(N/2:N);
 %}
+
+%Galaxy
+N = 2^6;
+dt = 0.01;
+steps = 40000;
+posBound = 300;
+
+x = rand(N,1);
+Vy = rand(N,1);
+den = rand(N,1);
+
+Vy = Vy*0.001;
+x = x*100;
+Vy = Vy*100;
+den = den*100;
+Vx = den*0.05;
+x(1) = 0;y(1) = 0;
+Vx(1) = 0;Vy(1) = 0;
+
 
 
 figure(1)

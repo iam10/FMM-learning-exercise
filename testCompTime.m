@@ -1,6 +1,6 @@
 clear all
 format long
-N = [512,1024,2048,4096,8192,16384,2*16384];
+N = [2^8,2^9,2^10,2^11,2^12,2^13,2^14,2^15,2^16];
 
 xMin = 1;
 xMax = 1000000;
@@ -11,9 +11,9 @@ directTime = zeros(length(N),1);
 fmmTime = zeros(length(N),1);
 
 for i = 1:length(N)
-    pointCloud = zeros(N(i)/2,2);
+    pointCloud = zeros(N(i),2);
     %generate a random x and y pair for each point
-    for j = 1:(N(i)/2)
+    for j = 1:(N(i))
         pointCloud(j,1) = (xMax - xMin)*rand() + xMin; 
         pointCloud(j,2) = (yMax - yMin)*rand() + yMin;
     end
@@ -23,7 +23,7 @@ for i = 1:length(N)
     dxxD = zeros(N(i),1);
     dyyD = zeros(N(i),1);
     tic
-    for j = 1:N(i)/2
+    for j = 1:N(i)
         ind = [(1:j-1) (j+1:N(i))];
         rho2 = (x(j) - x(ind)).^2 + (y(j) - y(ind)).^2;
         dxxD(j) = sum(den(ind).*(x(j) - x(ind))./rho2);
