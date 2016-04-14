@@ -1,16 +1,16 @@
 clear all
 format long
 dt = 0.1;
-steps = 1000;
+steps = 100;
 
 fileID = fopen('uniformDataUnperturbed.txt','r');
 formatSpec = '%f %f';
 sizeA = [2 Inf];
 A = fscanf(fileID,formatSpec,sizeA);
 A = A';
-xs = A(:,1);
-ys = A(:,2);
-N = length(xs);
+x = A(:,1);
+y = A(:,2);
+N = length(x);
 
 den = ones(N,1);
 x2 = zeros(N,1);
@@ -22,18 +22,12 @@ Vy2 = zeros(N,1);
 xDiff = zeros(steps,1);
 yDiff = zeros(steps,1);
 
-nPerts = 10;
-maxDiff = zeros(nPerts,1);
-pert = zeros(nPerts,1);
-for p = nPerts:-1:1
-    pert(p) = 10^-p;
-    x = xs;
-    y = ys;
+nPerts = 1;
+for p = 1:nPerts
+    pert = 10^-p;
     for i = 1:N
-        %Here i did perturbations based of a % of the original
-        %because we don't know how big the original is(could be a million)
-        x2(i) = x(i) + x(i)*((2*pert(p))*rand()-pert(p));
-        y2(i) = y(i) + y(i)*((2*pert(p))*rand()-pert(p));
+        x2(i) = x(i) + ((2*pert)*rand()-pert);
+        y2(i) = y(i) + ((2*pert)*rand()-pert);
     end
     for i = 1:steps
         [dxx,dyy] = laplaceSLPfmm(den,x,y);
@@ -64,8 +58,7 @@ for p = nPerts:-1:1
         %ylim([-10,10]);
         %pause
     end
-    maxDiff(p) = max(xDiff);
 end
-%maxDiff
+max(xDiff)
 figure;
-loglog(pert,maxDiff);
+plot(1:steps,xDiff);

@@ -7,10 +7,11 @@ for i = 1:pointCount
     pointCloud(i,1) = (xMax - xMin)*rand() + xMin; 
     pointCloud(i,2) = (yMax - yMin)*rand() + yMin;
     %perturb from original
+    p = 10^-3;
     pointCloudPerturbed(i,1) = pointCloud(i,1) + ...
-    ((.00002)*rand()-.00001);
-    pointCloudPerturbed(i,2) = pointCloud(i,1) + ...
-    ((.00002)*rand()-.00001);
+    ((2*p)*rand()-p);
+    pointCloudPerturbed(i,2) = pointCloud(i,2) + ...
+    ((2*p)*rand()-p);
 end
 %save stored information for unperturbed data
 fileID = fopen('uniformDataUnperturbed.txt','w');

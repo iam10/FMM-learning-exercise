@@ -36,10 +36,10 @@ ymax = max(y);
 
 figure(1)
 filename = 'fmm.gif';
-scatter(x,y);
+scatter(x,y)
 %xlim([0,5]);
 %ylim([0,5]);
-drawnow;
+drawnow
 frame = getframe(1);
 im = frame2im(frame);
 [imind,cm] = rgb2ind(im,256);
@@ -60,16 +60,17 @@ for i = 1:steps
     x = x + dt*Vx;
     y = y + dt*Vy;
 
-    scatter(x,y);
+    H = sum
+    
+    scatter(x,y)
     xlim([0,101]);
     ylim([0,101]);
-    drawnow;
+    drawnow
     frame = getframe(1);
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
     imwrite(imind,cm,filename,'gif','WriteMode','append');
 end
-
 
 %Where direct starts
 figure(2)

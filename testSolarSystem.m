@@ -39,8 +39,19 @@ Vy(7) = 0.325;
 Vy(8) = 0.228;
 Vy(9) = 0.182;
 %Vy(10) = 0.157;
-Vy = Vy*0.000000001;
+speedDisRatio = 67/93000
+Vy = Vy*speedDisRatio;
+x = x*100;
+Vy = Vy*3000000;
+den = den*100;
+Vx = den*0.05;
+Vx(1) = 0;
 
+dt = 0.01;
+steps = 40000;
+posBound = 300;
+
+%{
 %random
 Vy = zeros(N,1);
 
@@ -68,7 +79,9 @@ Vx(1) = 0;Vy(1) = 0;
 den = cos(rand(N,1));
 den(1) = N*.5;
 den(N/2:N) = 2.*den(N/2:N);
+%}
 
+%
 
 figure(1)
 filename = 'fmm.gif';
