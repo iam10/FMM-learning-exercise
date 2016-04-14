@@ -1,5 +1,8 @@
+%This file calculates the Hamiltonian and the difference between the direct
+%and FMM solver
 clear all
 format long
+%Notice that H goes down as t->0
 dt = 0.001;
 steps = 100;
 
@@ -62,10 +65,6 @@ for i = 1:steps
     errx = norm(dxx - dxxD,inf)/norm(dxxD,inf);
     erry = norm(dyy - dyyD,inf)/norm(dyyD,inf);
     error(i) = max(errx,erry);
-    %error = [abs(dxx-dxxD) abs(dyy-dyyD)];
-    %Linf(i) = norm(error,inf);
-    %x = xD;
-    %y = yD;
 
     %Calculate the Hamiltonian
     H(i) = sum(Vx.^2+Vy.^2)/2;

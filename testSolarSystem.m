@@ -124,7 +124,7 @@ Vx(1) = 0;Vy(1) = 0;
 den(1) = sum(den)*2;
 %}
 figure(1)
-filename = 'fmm.gif';
+filename = 'solarSystem.gif';
 scatter(x(2:N),y(2:N),'b');
 hold on
 scatter(x(1),y(1),'r');

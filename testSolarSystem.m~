@@ -41,10 +41,10 @@ Vy(9) = 0.182;
 %Vy(10) = 0.157;
 
 theta = rand(N,1)*2*pi;
-y = sin(theta).*x*10000000;
-x = cos(theta).*x*10000000;
-Vx = -sin(theta).*Vy*3000000;
-Vy = cos(theta).*Vy*3000000;
+y = sin(theta).*x*10000;
+x = cos(theta).*x*10000;
+Vx = -sin(theta).*Vy*4000000;
+Vy = cos(theta).*Vy*4000000;
 
 
 speedDisRatio = 67/93000;
@@ -59,7 +59,7 @@ Vx(1) = 0;Vy(1) = 0;
 
 dt = 1;
 steps = 40000;
-posBound = 100000000;
+posBound = 100000;
 
 %{
 %random
@@ -124,7 +124,7 @@ Vx(1) = 0;Vy(1) = 0;
 den(1) = sum(den)*2;
 %}
 figure(1)
-filename = 'fmm.gif';
+filename = 'solarSystem.gif';
 scatter(x(2:N),y(2:N),'b');
 hold on
 scatter(x(1),y(1),'r');

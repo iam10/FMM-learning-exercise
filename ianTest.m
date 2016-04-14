@@ -1,22 +1,6 @@
 clear all
-dt = 0.1;
+dt = 1;
 steps = 200;
-%N = 2^4;
-%{
-x = zeros(N,1);
-y = zeros(N,1);
-
-iter = 0;
-for i = 1:sqrt(N)
-    for j = 1:sqrt(N)
-        iter = iter + 1;
-        x(iter) = i + rand() * .1-.05;
-        y(iter) = j + rand() * (.1)-.05;
-    end
-end
-xD = x;
-yD = y;
-%}
 
 fileID = fopen('uniformDataUnperturbed.txt','r');
 formatSpec = '%f %f';
@@ -37,8 +21,7 @@ ymax = max(y);
 figure(1)
 filename = 'fmm.gif';
 scatter(x,y);
-%xlim([0,5]);
-%ylim([0,5]);
+title('FMM');
 drawnow;
 frame = getframe(1);
 im = frame2im(frame);
@@ -46,12 +29,9 @@ im = frame2im(frame);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
 
 den = ones(N,1);
-%den(1) = 100;
 Vx = zeros(N,1);
 Vy = zeros(N,1);
 for i = 1:steps
-    %dxx = 0;
-    %dyy = 0;
     [dxx,dyy] = laplaceSLPfmm(den,x,y);
     
     Vx = Vx - dxx*dt;
@@ -61,6 +41,7 @@ for i = 1:steps
     y = y + dt*Vy;
 
     scatter(x,y);
+    title('FMM');
     xlim([0,101]);
     ylim([0,101]);
     drawnow;
@@ -74,7 +55,8 @@ end
 %Where direct starts
 figure(2)
 filename = 'direct.gif';
-scatter(x,y)
+scatter(x,y);
+title('Direct');
 xlim([0,101]);
 ylim([0,101]);
 drawnow
@@ -103,7 +85,8 @@ for i = 1:steps
     xD = xD + dt*VxD;
     yD = yD + dt*VyD;
     
-    scatter(xD,yD)
+    scatter(xD,yD);
+    title('Direct');
     xlim([0,101]);
     ylim([0,101]);
     drawnow
