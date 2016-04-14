@@ -1,5 +1,5 @@
 clear all
-dt = 1;
+dt = 0.1;
 steps = 200;
 
 fileID = fopen('uniformDataUnperturbed.txt','r');
@@ -17,7 +17,7 @@ xmin = min(x);
 xmax = max(x);
 ymin = min(y);
 ymax = max(y);
-%{
+
 figure(1)
 filename = 'fmm.gif';
 scatter(x,y);
@@ -27,8 +27,9 @@ frame = getframe(1);
 im = frame2im(frame);
 [imind,cm] = rgb2ind(im,256);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
-%}
+
 den = ones(N,1);
+den(1) = 100;
 Vx = zeros(N,1);
 Vy = zeros(N,1);
 for i = 1:steps
@@ -39,7 +40,7 @@ for i = 1:steps
 
     x = x + dt*Vx;
     y = y + dt*Vy;
-    %{
+    
     scatter(x,y);
     title('FMM');
     xlim([0,101]);
@@ -49,7 +50,7 @@ for i = 1:steps
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
     imwrite(imind,cm,filename,'gif','WriteMode','append');
-    %}
+    
 end
 
 
