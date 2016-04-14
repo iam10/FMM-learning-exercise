@@ -18,7 +18,7 @@ xmax = max(x);
 ymin = min(y);
 ymax = max(y);
 
-figure;
+figure(1)
 filename = 'fmm.gif';
 scatter(x,y);
 title('FMM');
@@ -53,17 +53,17 @@ end
 
 
 %Where direct starts
-figure;
-filename = 'direct.gif';
+figure(2)
+filename2 = 'direct.gif';
 scatter(x,y);
 title('Direct');
 xlim([0,101]);
 ylim([0,101]);
 drawnow
-frame = getframe(1);
-im = frame2im(frame);
-[imind,cm] = rgb2ind(im,256);
-imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
+frame2 = getframe(1);
+im2 = frame2im(frame);
+[imind2,cm2] = rgb2ind(im,256);
+imwrite(imind2,cm2,filename2,'gif', 'Loopcount',inf);
 
 VxD = zeros(N,1);
 VyD = zeros(N,1);
