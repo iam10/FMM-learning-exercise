@@ -1,22 +1,6 @@
 clear all
-dt = 0.1;
+dt = 1;
 steps = 200;
-%N = 2^4;
-%{
-x = zeros(N,1);
-y = zeros(N,1);
-
-iter = 0;
-for i = 1:sqrt(N)
-    for j = 1:sqrt(N)
-        iter = iter + 1;
-        x(iter) = i + rand() * .1-.05;
-        y(iter) = j + rand() * (.1)-.05;
-    end
-end
-xD = x;
-yD = y;
-%}
 
 fileID = fopen('uniformDataUnperturbed.txt','r');
 formatSpec = '%f %f';
@@ -33,25 +17,21 @@ xmin = min(x);
 xmax = max(x);
 ymin = min(y);
 ymax = max(y);
-
+%{
 figure(1)
 filename = 'fmm.gif';
-scatter(x,y)
-%xlim([0,5]);
-%ylim([0,5]);
-drawnow
+scatter(x,y);
+title('FMM');
+drawnow;
 frame = getframe(1);
 im = frame2im(frame);
 [imind,cm] = rgb2ind(im,256);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
 
 den = ones(N,1);
-%den(1) = 100;
 Vx = zeros(N,1);
 Vy = zeros(N,1);
 for i = 1:steps
-    %dxx = 0;
-    %dyy = 0;
     [dxx,dyy] = laplaceSLPfmm(den,x,y);
     
     Vx = Vx - dxx*dt;
@@ -60,29 +40,31 @@ for i = 1:steps
     x = x + dt*Vx;
     y = y + dt*Vy;
 
-    H = sum
-    
-    scatter(x,y)
+    scatter(x,y);
+    title('FMM');
     xlim([0,101]);
     ylim([0,101]);
-    drawnow
+    drawnow;
     frame = getframe(1);
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
     imwrite(imind,cm,filename,'gif','WriteMode','append');
 end
+%}
 
 %Where direct starts
 figure(2)
-filename = 'direct.gif';
-scatter(x,y)
+filename2 = 'direct.gif';
+scatter(x,y);
+drawnow
+title('Direct');
 xlim([0,101]);
 ylim([0,101]);
 drawnow
-frame = getframe(1);
-im = frame2im(frame);
-[imind,cm] = rgb2ind(im,256);
-imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
+frame2 = getframe(1);
+im2 = frame2im(frame2);
+[imind2,cm2] = rgb2ind(im,256);
+imwrite(imind2,cm2,filename2,'gif', 'Loopcount',inf);
 
 VxD = zeros(N,1);
 VyD = zeros(N,1);
@@ -104,7 +86,8 @@ for i = 1:steps
     xD = xD + dt*VxD;
     yD = yD + dt*VyD;
     
-    scatter(xD,yD)
+    scatter(xD,yD);
+    title('Direct');
     xlim([0,101]);
     ylim([0,101]);
     drawnow
@@ -116,4 +99,5 @@ end
 
 error = [abs(x-xD) abs(y-yD)];
 norm(error,inf)
+
 

@@ -57,12 +57,10 @@ figure(2)
 filename2 = 'direct.gif';
 scatter(x,y);
 title('Direct');
-xlim([0,101]);
-ylim([0,101]);
 drawnow
-frame2 = getframe(1);
-im2 = frame2im(frame);
-[imind2,cm2] = rgb2ind(im,256);
+frame2 = getframe(2);
+im2 = frame2im(frame2);
+[imind2,cm2] = rgb2ind(im2,256);
 imwrite(imind2,cm2,filename2,'gif', 'Loopcount',inf);
 
 VxD = zeros(N,1);
@@ -90,12 +88,13 @@ for i = 1:steps
     xlim([0,101]);
     ylim([0,101]);
     drawnow
-    frame = getframe(1);
-    im = frame2im(frame);
-    [imind,cm] = rgb2ind(im,256);
-    imwrite(imind,cm,filename,'gif','WriteMode','append');
+    frame = getframe(2);
+    im2 = frame2im(frame2);
+    [imind2,cm2] = rgb2ind(im2,256);
+    imwrite(imind2,cm2,filename2,'gif','WriteMode','append');
 end
 
 error = [abs(x-xD) abs(y-yD)];
 norm(error,inf)
+
 
