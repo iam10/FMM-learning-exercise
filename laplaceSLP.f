@@ -51,7 +51,7 @@ c     START OF FORMING FIRST COMPONENET OF VELCOTIY
         charges(i) = den(i)
       enddo
 
-      call rfmm2dpart(ierr,4,ns,sources,
+      call rfmm2dpart(ierr,5,ns,sources,
      $   ifcharge,charges,ifdipole,dipstr,dipvec,
      $   ifpot,pot,ifgrad,grad,ifhess,hess)
 c     compute the gradient of Laplace SLP
