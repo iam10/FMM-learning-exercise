@@ -55,14 +55,14 @@ end
 
 %Where direct starts
 figure(1)
-filename2 = 'direct.gif';
+filename = 'direct.gif';
 scatter(xD,yD);
 title('Direct');
 drawnow
-frame2 = getframe(1);
-im2 = frame2im(frame2);
-[imind2,cm2] = rgb2ind(im2,256);
-imwrite(imind2,cm2,filename2,'gif', 'Loopcount',inf);
+frame = getframe(1);
+im = frame2im(frame);
+[imind,cm] = rgb2ind(im,256);
+imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
 
 VxD = zeros(N,1);
 VyD = zeros(N,1);
@@ -90,9 +90,9 @@ for i = 1:steps
     ylim([0,101]);
     drawnow
     frame = getframe(1);
-    im2 = frame2im(frame2);
-    [imind2,cm2] = rgb2ind(im2,256);
-    imwrite(imind2,cm2,filename2,'gif','WriteMode','append');
+    im = frame2im(frame);
+    [imind,cm] = rgb2ind(im,256);
+    imwrite(imind,cm,filename,'gif','WriteMode','append');
 end
 
 error = [abs(x-xD) abs(y-yD)];
